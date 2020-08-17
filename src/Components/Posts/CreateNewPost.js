@@ -1,20 +1,64 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom';
+import Firebase from 'firebase';
 
-const CreateNewPost = () => (
-    <div className="container">
-        <form>
-            <div className="input-field">
-                <input id="postTitle" type="text" className="validate"/>
-                <label for="postTitle">Title:</label>
-            </div>
-            <div className="input-field">
-                <textarea id="postContent" className="materialize-textarea" data-length="500"></textarea>
-                <label for="postContent">Content:</label>
-            </div>
+class CreateNewPost extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            posted: false
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmission = this.handleSubmission.bind(this);
+    }
 
-            <button className="btn waves-effect waves-light" type="submit" name="action">Submit</button>
-        </form>
-    </div>
-)
+    handleChange = (e) => {
+        console.log(this);
+        this.setState({
+            [e.target.id]: e.target.value
+        })
+    }
+
+    handleSubmission = (e) => {
+        e.preventDefault();
+
+        Firebase.firestore().collection('posts').add({
+            title: this.state.postTitle,
+            content: this.state.postContent,
+            time: new Date(),
+            user: Firebase.auth().currentUser.uid
+        }).then(() => {
+            this.setState({
+                posted: true
+            })
+        })
+    }
+
+    render() {
+        return(
+            <div className="container">
+                { this.state.posted ? <Redirect to="/"/> : '' }
+                {   
+                    !this.props.uid ?
+                    <Redirect to="/login"/> :
+                    <form onSubmit={this.handleSubmission}>
+                        <div className="input-field">
+                            <input onChange={this.handleChange} id="postTitle" type="text" className="validate"/>
+                            <label htmlFor="postTitle">Title:</label>
+                        </div>
+                        <div className="input-field">
+                            <textarea onChange={this.handleChange} id="postContent" className="materialize-textarea" data-length="500"></textarea>
+                            <label htmlFor="postContent">Content:</label>
+                        </div>
+
+                        <button className="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+                    </form>
+                }
+            </div>
+        )
+    }
+}
+
 
 export default CreateNewPost;
+

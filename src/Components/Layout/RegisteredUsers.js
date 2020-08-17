@@ -11,10 +11,11 @@ class RegisteredUsers extends React.Component {
                 console.log('Some error has occurred while logging out');
             });
     }
-    
+
     render(){
         return (
             <div>
+                <li><NavLink to="/create">Create new post</NavLink></li> 
                 <li><NavLink to="/logout" onClick={this.logOut}>Logout</NavLink></li> 
             </div>
         )

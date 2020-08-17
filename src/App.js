@@ -35,17 +35,21 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      uid: null
+      uid: Firebase.auth().currentUser
     };
   }
 
   render(){
     Firebase.auth().onAuthStateChanged(user => {
-      debugger;
+      // only executes when there has been changes to the user login status
+
+      // user is now logged in, previously not
       if (user && this.state.uid === null) {
         this.setState({
           uid: user.uid
         })
+
+      // user is now not logged in, and previously was
       } else if (!user && this.state.uid !== null) {
         this.setState({
           uid: null
@@ -58,13 +62,19 @@ class App extends React.Component {
         <div className="App">
           <div className="container">
             <NavigationBar uid={this.state.uid}></NavigationBar>
+
             <Switch>
               <Route exact path="/" render={() => {
                 return <Feeds uid={this.state.uid} />
               }}></Route>
-              <Route exact path="/create" component={CreateNewPost}></Route>
+
+              <Route exact path="/create" render={() => {
+                return <CreateNewPost uid={this.state.uid} />
+              }}></Route>
+
               <Route exact path="/register" component={Register}></Route>
               <Route exact path="/login" component={LogIn}></Route>
+
               <Route exact path="/logout" render={() => {
                 return <LogOut uid={this.state.uid} />
               }}></Route>
