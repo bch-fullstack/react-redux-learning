@@ -59,7 +59,9 @@ class App extends React.Component {
           <div className="container">
             <NavigationBar uid={this.state.uid}></NavigationBar>
             <Switch>
-              <Route exact path="/" component={Feeds}></Route>
+              <Route exact path="/" render={() => {
+                return <Feeds uid={this.state.uid} />
+              }}></Route>
               <Route exact path="/create" component={CreateNewPost}></Route>
               <Route exact path="/register" component={Register}></Route>
               <Route exact path="/login" component={LogIn}></Route>
