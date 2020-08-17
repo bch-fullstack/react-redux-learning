@@ -7,7 +7,8 @@ class LogIn extends React.Component {
     
         this.state = {
             email: null,
-            password: null
+            password: null,
+            auth: null
         };
 
         this.handleSubmission = this.handleSubmission.bind(this);
@@ -27,7 +28,7 @@ class LogIn extends React.Component {
         Firebase.auth().signInWithEmailAndPassword(
             this.state.email,
             this.state.password
-        ).then(() => {
+        ).then(resp => {
             console.log('Login success');
         }).catch(err => {
             console.log('Login fail: ' + err);
@@ -54,3 +55,4 @@ class LogIn extends React.Component {
 } 
 
 export default LogIn;
+

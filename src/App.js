@@ -31,24 +31,46 @@ db.collection('posts').get()
   });
 
 
-function App() {
-  return (
-    <Router>
-      <div className="App">
-        <div className="container">
-          <NavigationBar></NavigationBar>
-          <Switch>
-            <Route exact path="/" component={Feeds}></Route>
-            <Route exact path="/create" component={CreateNewPost}></Route>
-            <Route exact path="/register" component={Register}></Route>
-            <Route exact path="/login" component={LogIn}></Route>
-            <Route exact path="/logout" component={LogOut}></Route>
-            <Route exact path="/post/:id" component={PostDetails}></Route>
-          </Switch>       
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      uid: null
+    };
+  }
+
+  render(){
+    Firebase.auth().onAuthStateChanged(user => {
+      debugger;
+      if (user && this.state.uid === null) {
+        this.setState({
+          uid: user.uid
+        })
+      } else if (!user && this.state.uid !== null) {
+        this.setState({
+          uid: null
+        })
+      }
+    });
+
+    return (
+      <Router>
+        <div className="App">
+          <div className="container">
+            <NavigationBar uid={this.state.uid}></NavigationBar>
+            <Switch>
+              <Route exact path="/" component={Feeds}></Route>
+              <Route exact path="/create" component={CreateNewPost}></Route>
+              <Route exact path="/register" component={Register}></Route>
+              <Route exact path="/login" component={LogIn}></Route>
+              <Route exact path="/logout" component={LogOut}></Route>
+              <Route exact path="/post/:id" component={PostDetails}></Route>
+            </Switch>       
+          </div>
         </div>
-      </div>
-    </Router>
-  );
+      </Router>
+    );
+  }
 }
 
 export default App;
