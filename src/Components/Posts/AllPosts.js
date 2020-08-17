@@ -30,7 +30,8 @@ class AllPosts extends React.Component {
                 { 
                     this.state.posts ? 
                     this.state.posts.map(post => <PostSummary post={post.data()} key={x++}></PostSummary>):
-                    'Loading....' }
+                    'Loading....'
+                }
             </div>
         )
     }

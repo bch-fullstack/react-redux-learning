@@ -7,6 +7,7 @@ const PostSummary = (props) => {
             <div className="card-content">
                 <p>{props.post.content}</p>
                 <p className="grey">{props.post.time.toString()}</p>
+                <p className="grey">{props.post.uid}</p>
             </div>
         </div>
     )
