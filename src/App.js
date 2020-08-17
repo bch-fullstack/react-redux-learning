@@ -65,7 +65,9 @@ class App extends React.Component {
               <Route exact path="/create" component={CreateNewPost}></Route>
               <Route exact path="/register" component={Register}></Route>
               <Route exact path="/login" component={LogIn}></Route>
-              <Route exact path="/logout" component={LogOut}></Route>
+              <Route exact path="/logout" render={() => {
+                return <LogOut uid={this.state.uid} />
+              }}></Route>
               <Route exact path="/post/:id" component={PostDetails}></Route>
             </Switch>       
           </div>

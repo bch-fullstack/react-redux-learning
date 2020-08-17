@@ -11,6 +11,7 @@ class RegisteredUsers extends React.Component {
                 console.log('Some error has occurred while logging out');
             });
     }
+    
     render(){
         return (
             <div>
