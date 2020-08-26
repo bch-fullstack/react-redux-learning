@@ -13,3 +13,21 @@ export const createPost = function(post){
             });
     };
 }
+
+export const getPosts = () => {
+    return (dispatch, getState, storeEnhancers) => {
+        storeEnhancers.getFirestore().collection('posts').get()
+            .then(resp => {
+                dispatch({ 
+                    type: 'FETCHED_POSTS_SUCCESS',
+                    resp: resp.docs
+                })
+            })
+            .catch(err => {
+                dispatch({ 
+                    type: 'FETCHED_POSTS_FAIL', 
+                    err: err 
+                })
+            });
+    };
+}

@@ -51,16 +51,16 @@ class LogIn extends React.Component {
     }
 } 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         loginStatus: !state.firebase.auth.isEmpty
     }
 }
 
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
     return {
-        logIn: (credentials) => {
+        logIn: credentials => {
             dispatch(logIn(credentials));
         }
     }
