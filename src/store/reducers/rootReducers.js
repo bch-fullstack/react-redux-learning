@@ -30,12 +30,12 @@ const authReducer = (state = initialState, action) => {
 
 const postReducer = (state = initialState, action) => {
     switch(action.type) {
-        case 'FETCHED_POST_SUCCESS':
+        case 'FETCHED_POSTS_SUCCESS':
             return {
                 ...state,
                 posts: action.resp
             }
-            
+
         case 'CREATE_NEW_POST':
             console.log('A new post has been added')
             return state;      
