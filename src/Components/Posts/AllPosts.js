@@ -12,8 +12,8 @@ class AllPosts extends React.Component {
                 <button className="btn" onClick={this.props.removePost}>Remove All Post</button>
                 { 
                     this.props.posts ? 
-                    this.props.posts.map(post => 
-                        <PostSummary post={post} key={Math.random()*99}/>
+                    Object.keys(this.props.posts).map((postId, index) => 
+                        <PostSummary post={this.props.posts[postId]} postId={postId} key={index}/>
                     ) :
                     'Loading ....'
                 }
@@ -23,9 +23,11 @@ class AllPosts extends React.Component {
 }
 
 const mapStateToProps = state => {
-    debugger;
-    return {
-        posts: state.firestore ? state.firestore.data.posts : null
+    if (state.firestore.data.posts) {
+        debugger;
+        return {
+            posts: state.firestore.data.posts
+        }
     }
 }
 

@@ -6,7 +6,10 @@ class PostSummary extends React.Component {
         return (
             <div className="card post">
                 <div className="card-title">{this.props.post.title}</div>
-                <div className="card-content">{this.props.post.content}</div>
+                <div className="card-content">
+                    <p>{this.props.post.content}</p>
+                    <p>Here is the postId: {this.props.postId}</p>
+                </div>
             </div>
         )
     }
