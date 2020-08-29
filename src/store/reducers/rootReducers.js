@@ -1,4 +1,5 @@
 import { firebaseReducer } from 'react-redux-firebase'
+import { firestoreReducer } from 'redux-firestore'
 import { combineReducers } from 'redux'
 
 const initialState = {
@@ -60,7 +61,8 @@ const postReducer = (state = initialState, action) => {
 const rootReducers = combineReducers({
     auth: authReducer,
     post: postReducer,
-    firebase: firebaseReducer
+    firebase: firebaseReducer,
+    firestore: firestoreReducer
 })
 
 export default rootReducers;
