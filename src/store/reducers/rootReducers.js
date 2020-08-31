@@ -8,7 +8,8 @@ const initialState = {
     ],
     userData: {},
     userActionErr: null,
-    loginStatus: false
+    loginStatus: false,
+    notifications: []
 };
 
 const authReducer = (state = initialState, action) => {
@@ -52,6 +53,14 @@ const postReducer = (state = initialState, action) => {
             return {
                 ...state,
                 posts: []
+            }
+        case 'POST_ADDITION_OBSERVED':
+            return {
+                ...state,
+                notifications: [
+                    ...state.notifications,
+                    action.post
+                ]
             }
         default: 
             return state;

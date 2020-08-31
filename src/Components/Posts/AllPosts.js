@@ -23,11 +23,8 @@ class AllPosts extends React.Component {
 }
 
 const mapStateToProps = state => {
-    if (state.firestore.data.posts) {
-        debugger;
-        return {
-            posts: state.firestore.data.posts
-        }
+    return {
+        posts: state.firestore.data.posts
     }
 }
 
